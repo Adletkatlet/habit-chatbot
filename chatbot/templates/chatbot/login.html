@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — HabitBot</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #0f0f1a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.card {
+    background: #16162a;
+    border: 1px solid #2a2a4a;
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    justify-content: center;
+}
+.logo-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, #7c6af7, #f76a8a);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+}
+.logo h1 { font-size: 22px; font-weight: 700; }
+.logo p  { font-size: 12px; color: #64748b; }
+
+h2 { font-size: 20px; margin-bottom: 6px; }
+.subtitle { color: #64748b; font-size: 14px; margin-bottom: 28px; }
+
+.field { margin-bottom: 18px; }
+label { display: block; font-size: 13px; color: #94a3b8; margin-bottom: 6px; font-weight: 500; }
+
+input {
+    width: 100%;
+    background: #1e1e35;
+    border: 1px solid #2a2a4a;
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: #e2e8f0;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+}
+input:focus { border-color: #7c6af7; box-shadow: 0 0 0 3px rgba(124,106,247,0.15); }
+input::placeholder { color: #475569; }
+
+.btn {
+    width: 100%;
+    background: linear-gradient(135deg, #7c6af7, #a855f7);
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: opacity 0.2s, transform 0.15s;
+    font-family: inherit;
+}
+.btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.error {
+    background: rgba(247,106,138,0.15);
+    border: 1px solid rgba(247,106,138,0.4);
+    color: #f76a8a;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13px;
+    color: #64748b;
+}
+.footer a { color: #7c6af7; text-decoration: none; font-weight: 500; }
+.footer a:hover { text-decoration: underline; }
+
+.divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 24px 0; color: #2a2a4a; font-size: 12px;
+}
+.divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px; background: #2a2a4a;
+}
+</style>
+</head>
+<body>
+<div class="card">
+    <div class="logo">
+        <div class="logo-icon">&#127807;</div>
+        <div>
+            <h1>HabitBot</h1>
+            <p>Daily Habit Tracker</p>
+        </div>
+    </div>
+
+    <h2>Welcome back!</h2>
+    <p class="subtitle">Sign in to your account to continue your streaks.</p>
+
+    {% if error %}
+    <div class="error">&#9888; {{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Enter your username" autocomplete="username" required>
+        </div>
+        <div class="field">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="btn">Sign In &#8594;</button>
+    </form>
+
+    <div class="footer">
+        Don't have an account? <a href="{% url 'register' %}">Create one free</a>
+    </div>
+</div>
+</body>
+</html>
